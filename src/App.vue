@@ -1,24 +1,26 @@
 <template>
   <div id="app">
+    <LocationSelector @citySelected="getWeather" />
   </div>
 </template>
 
 <script>
+import LocationSelector from './components/LocationSelector.vue';
 
 export default {
   name: 'App',
   components: {
+    LocationSelector,
   },
   mounted() {
-    this.getWeather();
   },
   methods: {
-    async getWeather() {
+    async getWeather(city) {
       try {
         const host = process.env.VUE_APP_HOST;
         const key = process.env.VUE_APP_KEY;
         console.log(host, key);
-        const response = await fetch(`${host}=London&appid=${key}`);
+        const response = await fetch(`${host}=${city}&appid=${key}`);
         const result = await response.json();
         console.log(result);
       } catch (err) {
