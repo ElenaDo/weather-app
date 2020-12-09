@@ -30,6 +30,11 @@ export default {
   border: 1px solid lightgrey;
   box-shadow: 3px 3px 3px lightgrey;
 }
+@media (max-width: 600px) {
+  .main-container {
+    width: 100%;
+  }
+}
 h4 {
   color: rgb(219, 76, 51);;
 }

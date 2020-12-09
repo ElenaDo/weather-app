@@ -6,12 +6,10 @@
           {{country.name}}
         </option>
       </select>
-    <input v-model="location.city" placeholder="City name">
-    <button @click="request" :disabled="!location.city.length || !location.country">OK</button>
+      <input v-model="location.city" placeholder="City name">
+      <button @click="request" :disabled="!location.city.length || !location.country">OK</button>
     </div>
-    <div>
-      <button class="random-button" @click="genRandomCoord">Random location</button>
-    </div>
+    <button class="random-button" @click="genRandomCoord">Random location</button>
   </div>
 </template>
 
@@ -50,6 +48,8 @@ export default {
 input, select{
   padding: .3em;
   margin: .2em;
+  border: 1px solid lightgray;
+  border-radius: .2em;
 }
 select {
   width: 150px;
@@ -70,6 +70,24 @@ button:hover {
   background-color: rgb(73, 185, 219);
 }
 .random-button {
-  margin: 1em;
+  margin: 1em 0 1em 0;
+}
+.selector-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media (max-width: 600px) {
+  .selector-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  select{
+    width: 100%;
+  }
+  input, select, button {margin: 0.2em 0em}
+  button {
+    width: 100%;
+  }
 }
 </style>
