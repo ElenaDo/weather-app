@@ -15,12 +15,12 @@ export default {
   mounted() {
   },
   methods: {
-    async getWeather(city) {
+    async getWeather({ city, country }) {
       try {
         const host = process.env.VUE_APP_HOST;
         const key = process.env.VUE_APP_KEY;
         console.log(host, key);
-        const response = await fetch(`${host}=${city}&appid=${key}`);
+        const response = await fetch(`${host}/2.5/weather?q=${city},${country}&appid=${key}`);
         const result = await response.json();
         console.log(result);
       } catch (err) {
