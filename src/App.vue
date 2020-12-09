@@ -1,16 +1,19 @@
 <template>
   <div id="app">
     <LocationSelector @citySelected="getByCity" @coordSelected="getByCoord" />
+    <WeatherCard />
   </div>
 </template>
 
 <script>
 import LocationSelector from './components/LocationSelector.vue';
+import WeatherCard from './components/WeatherCard.vue';
 
 export default {
   name: 'App',
   components: {
     LocationSelector,
+    WeatherCard,
   },
   mounted() {
   },
