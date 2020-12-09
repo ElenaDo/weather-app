@@ -16,6 +16,7 @@ export default {
   data: () => ({
     weatherData: {},
     errorMessage: '',
+    responseCache: {},
   }),
   components: {
     LocationSelector,
@@ -33,14 +34,17 @@ export default {
       this.getWeather(query);
     },
     async getWeather(query) {
+      this.errorMessage = '';
+      if (this.responseCache[query]) {
+        this.weatherData = this.responseCache[query];
+        return;
+      }
       try {
         this.weatherData = {};
-        this.errorMessage = '';
         const host = process.env.VUE_APP_HOST;
         const key = process.env.VUE_APP_KEY;
         const response = await fetch(`${host}/2.5/weather?${query}&units=metric&appid=${key}`);
         if (!response.ok) {
-          console.log(response);
           if (response.status === 404) {
             this.errorMessage = 'City not found';
           } else {
@@ -49,9 +53,11 @@ export default {
           return;
         }
         const result = await response.json();
+        this.responseCache[query] = result;
         this.weatherData = result;
       } catch (err) {
-        console.log(err);
+        // eslint-disable-next-line no-console
+        console.error(err);
         this.errorMessage = 'Connection error';
       }
     },
