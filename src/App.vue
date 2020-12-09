@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <LocationSelector @citySelected="getByCity" @coordSelected="getByCoord" />
-    <WeatherCard />
+    <WeatherCard v-if="Object.keys(weatherData).length" :weatherData="weatherData"/>
   </div>
 </template>
 
@@ -11,6 +11,9 @@ import WeatherCard from './components/WeatherCard.vue';
 
 export default {
   name: 'App',
+  data: () => ({
+    weatherData: {},
+  }),
   components: {
     LocationSelector,
     WeatherCard,
@@ -33,6 +36,7 @@ export default {
         console.log(host, key);
         const response = await fetch(`${host}/2.5/weather?${query}&units=metric&appid=${key}`);
         const result = await response.json();
+        this.weatherData = result;
         console.log(result);
       } catch (err) {
         console.log(err);
