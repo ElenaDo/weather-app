@@ -22,7 +22,7 @@ export default {
     city: '',
     location: {
       city: '',
-      country: '',
+      country: 'DE',
     },
     countries,
   }),
@@ -37,9 +37,8 @@ export default {
     },
     request() {
       this.$emit('citySelected', this.location);
-      console.log(this.location);
+      // clear city after request
       this.location.city = '';
-      this.location.country = '';
     },
   },
 };
