@@ -7,6 +7,9 @@
       </option>
     </select>
     <button @click="request" :disabled="!location.city.length || !location.country">OK</button>
+    <div>
+      <button @click="genRandomCoord">Randon location</button>
+    </div>
   </div>
 </template>
 
@@ -24,6 +27,14 @@ export default {
     countries,
   }),
   methods: {
+    randomInterval(to, from) {
+      return (Math.random() * (to - from) + from).toFixed(3) * 1;
+    },
+    genRandomCoord() {
+      const lat = this.randomInterval(-90, 90);
+      const lon = this.randomInterval(-180, 180);
+      this.$emit('coordSelected', { lat, lon });
+    },
     request() {
       this.$emit('citySelected', this.location);
       console.log(this.location);
