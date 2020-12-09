@@ -3,6 +3,7 @@
     <LocationSelector @citySelected="getByCity" @coordSelected="getByCoord" />
     <WeatherCard v-if="Object.keys(weatherData).length" :weatherData="weatherData"/>
     <p v-else>Please choose location</p>
+    <p v-if="errorMessage" class="error">{{errorMessage}}</p>
   </div>
 </template>
 
@@ -14,6 +15,7 @@ export default {
   name: 'App',
   data: () => ({
     weatherData: {},
+    errorMessage: '',
   }),
   components: {
     LocationSelector,
@@ -32,15 +34,25 @@ export default {
     },
     async getWeather(query) {
       try {
+        this.weatherData = {};
+        this.errorMessage = '';
         const host = process.env.VUE_APP_HOST;
         const key = process.env.VUE_APP_KEY;
-        console.log(host, key);
         const response = await fetch(`${host}/2.5/weather?${query}&units=metric&appid=${key}`);
+        if (!response.ok) {
+          console.log(response);
+          if (response.status === 404) {
+            this.errorMessage = 'City not found';
+          } else {
+            this.errorMessage = response.statusText;
+          }
+          return;
+        }
         const result = await response.json();
         this.weatherData = result;
-        console.log(result);
       } catch (err) {
         console.log(err);
+        this.errorMessage = 'Connection error';
       }
     },
   },
@@ -57,5 +69,7 @@ export default {
   margin-top: 60px;
   padding: 1em;
 }
-
+.error {
+  color: red
+}
 </style>
