@@ -2,6 +2,7 @@
   <div id="app">
     <LocationSelector @citySelected="getByCity" @coordSelected="getByCoord" />
     <WeatherCard v-if="Object.keys(weatherData).length" :weatherData="weatherData"/>
+    <p v-else>Please choose location</p>
   </div>
 </template>
 

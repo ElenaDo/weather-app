@@ -1,14 +1,16 @@
 <template>
   <div>
+    <div class="selector-section">
+      <select v-model="location.country">
+        <option v-for="(country, key) of countries" :key="key" :value="key">
+          {{country.name}}
+        </option>
+      </select>
     <input v-model="location.city" placeholder="City name">
-    <select v-model="location.country">
-      <option v-for="(country, key) of countries" :key="key" :value="key">
-        {{country.name}}
-      </option>
-    </select>
     <button @click="request" :disabled="!location.city.length || !location.country">OK</button>
+    </div>
     <div>
-      <button @click="genRandomCoord">Randon location</button>
+      <button class="random-button" @click="genRandomCoord">Random location</button>
     </div>
   </div>
 </template>
@@ -21,8 +23,8 @@ export default {
   data: () => ({
     city: '',
     location: {
-      city: 'Berlin',
-      country: 'US',
+      city: '',
+      country: '',
     },
     countries,
   }),
@@ -38,7 +40,36 @@ export default {
     request() {
       this.$emit('citySelected', this.location);
       console.log(this.location);
+      this.location.city = '';
+      this.location.country = '';
     },
   },
 };
 </script>
+<style lang="scss" scoped>
+input, select{
+  padding: .3em;
+  margin: .2em;
+}
+select {
+  width: 150px;
+}
+button {
+  padding: .4em .6em;
+  border: 0px;
+  border-radius: .2em;
+  background-color: rgb(80, 172, 226);
+  color: white;
+  cursor: pointer;
+  transition: background-color .5s;
+}
+button:focus {
+  outline: none;
+}
+button:hover {
+  background-color: rgb(73, 185, 219);
+}
+.random-button {
+  margin: 1em;
+}
+</style>
