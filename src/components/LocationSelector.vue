@@ -62,16 +62,20 @@ button {
   color: white;
   cursor: pointer;
   transition: background-color .5s;
+  &:focus{
+    outline: none;
+  }
+  &:hover{
+    background-color: rgb(65, 195, 219);
+  }
+  &.random-button {
+    margin: 1em 0 1em 0;
+  }
+  &:disabled{
+    opacity: 0.5;
+  }
 }
-button:focus {
-  outline: none;
-}
-button:hover {
-  background-color: rgb(73, 185, 219);
-}
-.random-button {
-  margin: 1em 0 1em 0;
-}
+
 .selector-section {
   display: flex;
   justify-content: center;
