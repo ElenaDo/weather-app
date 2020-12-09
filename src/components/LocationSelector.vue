@@ -6,7 +6,7 @@
         {{country.name}}
       </option>
     </select>
-    <button @click="request">OK</button>
+    <button @click="request" :disabled="!location.city.length || !location.country">OK</button>
   </div>
 </template>
 
