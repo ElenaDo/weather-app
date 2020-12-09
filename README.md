@@ -4,6 +4,8 @@
 ```
 npm install
 ```
+rename `.env.local.example` to `.env.local` and insert your own OpenWeather key here
+
 
 ### Compiles and hot-reloads for development
 ```
